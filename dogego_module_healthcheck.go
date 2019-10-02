@@ -1,4 +1,4 @@
-package main
+package dogego_module_healthcheck
 
 import "fmt"
 
