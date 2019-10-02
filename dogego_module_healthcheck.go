@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type HealthCheck []func() error
 
 func NewHealthCheck() HealthCheck {
@@ -12,16 +14,16 @@ func (health HealthCheck) AddHealthCheck(job func() error) HealthCheck {
 }
 
 // 检查心跳
-func (health HealthCheck) Check() []error {
-	errors := make([]error, 0)
+func (health HealthCheck) Check() {
+	panic_string := ""
 
 	for _, h := range health {
 		err := h()
 
 		if err != nil {
-			errors = append(errors, err)
+			panic_string += fmt.Sprintf("%s\n", err.Error())
 		}
 	}
 
-	return errors
+	panic(panic_string)
 }
